@@ -1,5 +1,7 @@
 package com.Day_27_AddressBook;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.ParseException;
@@ -8,6 +10,7 @@ import java.util.stream.Stream;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 public class Address_Book 
 {
@@ -276,7 +279,27 @@ public class Address_Book
 			e.printStackTrace();
 		}
 	}
-
+	
+	public void readFile(String file) throws Exception
+	{
+		JSONParser jsonP = new JSONParser();
+		FileReader reader = new FileReader(file);
+		try
+		{
+			Object obj = jsonP.parse(reader);
+			JSONArray array = (JSONArray) obj;
+			System.out.println(array);
+		}
+		catch(FileNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
 	public void showAllContacts()
 	{
 		for(Contacts c: list)
@@ -307,7 +330,7 @@ public class Address_Book
         }
     }
 	
-	public static void main(String[] args) throws IOException, ParseException
+	public static void main(String[] args) throws Exception
 	{	
 		Address_Book  address_Book = new Address_Book();
 		Scanner sc = new Scanner(System.in);
@@ -436,11 +459,20 @@ public class Address_Book
 					
 				case 9:
                     if (chooseAddressBook == 1) 
+                    {
                     	book1.writeFile("C:\\Users\\Arafath Baig\\eclipse-workspace\\Day_27_AddressBook\\src\\main\\resources\\AddressBook1.json");
+                    	book1.readFile("C:\\Users\\Arafath Baig\\eclipse-workspace\\Day_27_AddressBook\\src\\main\\resources\\AddressBook1.json");
+                    }
                     else if (chooseAddressBook == 2) 
+                    {
                     	book2.writeFile("C:\\Users\\Arafath Baig\\eclipse-workspace\\Day_27_AddressBook\\src\\main\\resources\\AddressBook2.json");
+                    	book2.readFile("C:\\Users\\Arafath Baig\\eclipse-workspace\\Day_27_AddressBook\\src\\main\\resources\\AddressBook2.json");
+                    }
                     else if (chooseAddressBook == 3) 
+                    {
                     	book3.writeFile("C:\\Users\\Arafath Baig\\eclipse-workspace\\Day_27_AddressBook\\src\\main\\resources\\AddressBook3.json");
+                    	book3.readFile("C:\\Users\\Arafath Baig\\eclipse-workspace\\Day_27_AddressBook\\src\\main\\resources\\AddressBook3.json");
+                    }
                     else 
                     	System.out.println("Wrong Input");
                     break;
